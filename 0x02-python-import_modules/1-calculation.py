@@ -1,10 +1,13 @@
 #!/usr/bin/python3
 if __name__ == "__main__":
-    from calculator_1 import add, sub, mul, div
-
+    import calculator_1 as cal
     a = 10
     b = 5
-    print('{:d} + {:d} = {:d}'.format(a, b, (add(a, b))))
-    print('{:d} - {:d} = {:d}'.format(a, b, (sub(a, b))))
-    print('{:d} * {:d} = {:d}'.format(a, b, (mul(a, b))))
-    print('{:d} / {:d} = {:d}'.format(a, b, (div(a, b))))
+    # ADD
+    print("{} + {} = {}".format(a, b, cal.add(a, b)))
+    # SUBTRACT
+    print("{} + {} = {}".format(a, b, cal.sub(a, b)))
+    # MULTIPLY
+    print("{} + {} = {}".format(a, b, cal.mul(a, b)))
+    # DIVIDE
+    print("{} + {} = {}".format(a, b, cal.div(a, b)))
