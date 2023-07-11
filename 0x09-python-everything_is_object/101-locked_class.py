@@ -1,11 +1,11 @@
 #!/usr/bin/python3
-"""Defines a locked class."""
+""" Locked class example """
 
 
 class LockedClass:
-    """
-    Prevent the user from instantiating new LockedClass attributes
-    for anything but attributes called 'first_name'.
-    """
+    """ Locked class """
+    __slots__ = ['first_name']
 
-    __slots__ = ["first_name"]
+    def __init__(self):
+        """ Instance intallization """
+        pass

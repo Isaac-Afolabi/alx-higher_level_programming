@@ -2,68 +2,41 @@
 #include <stdlib.h>
 
 /**
- * _realloc - Reallocates a memory block
- * @ptr: The pointer to the previous memory block
- * @old_size: The size of the old memory block
- * @new_size: The size of the new memory block
+ * check_cycle - checks if a singly linked list has a cycle in it.
+ * @list: pointer to the linked list
  *
- * Return: The pointer to the new memory block otherwise NULL
+ * Return: 0 if there is no cycle, 1 if there is a cycle
  */
-void *_realloc(void *ptr, unsigned int old_size, unsigned int new_size)
-{
-	void *new_ptr;
-	unsigned int min_size = old_size < new_size ? old_size : new_size;
-	unsigned int i;
-
-	if (new_size == old_size)
-		return (ptr);
-	if (ptr != NULL)
-	{
-		if (new_size == 0)
-		{
-			free(ptr);
-			return (NULL);
-		}
-		new_ptr = malloc(new_size);
-		if (new_ptr != NULL)
-		{
-			for (i = 0; i < min_size; i++)
-				*((char *)new_ptr + i) = *((char *)ptr + i);
-			free(ptr);
-			return (new_ptr);
-		}
-		free(ptr);
-		return (NULL);
-	}
-	else
-	{
-		new_ptr = malloc(new_size);
-		return (new_ptr);
-	}
-}
-
-
-
-/**
- * check_cycle - checks if a singly linked list has a cycle in it
- * @list: list head
- * Return: 0 if no, 1 if yes
- */
-
 int check_cycle(listint_t *list)
 {
-	listint_t *fast, *slow = list;
+	listint_t *pprev;
+	listint_t *nprev;
 
-	if (list == NULL)
-		return (0);
-
-	fast = list->next;
-	while (slow != NULL && fast != NULL && fast->next != NULL)
+	pprev = list;
+	nprev = list;
+	while (pprev != NULL && pprev->next != NULL && list != NULL)
 	{
-		if (slow == fast)
+		list = list->next;
+		pprev = pprev->next->next;
+
+		if (list == pprev)
+		{
+			list = nprev;
+			nprev =  pprev;
+			while (1)
+			{
+				pprev = nprev;
+				while (pprev->next != list && pprev->next != nprev)
+				{
+					pprev = pprev->next;
+				}
+				if (pprev->next == list)
+					break;
+
+				list = list->next;
+			}
 			return (1);
-		fast = fast->next->next;
-		slow = slow->next;
+		}
 	}
 	return (0);
 }
